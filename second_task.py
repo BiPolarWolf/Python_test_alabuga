@@ -1,24 +1,33 @@
 def kki():
-    a_count, b_count ,q_count = list(map(lambda x: int(x),input('Через пробел введите 3 числа :').split(' ')))
+    a_count, b_count ,q_count = list(map(lambda x: int(x),
+    input('Через пробел введите 3 числа :').strip().split()))
     q_list = a_cards = b_cards = []
 
     while len(a_cards) != a_count:
-        a_cards =  list(map(lambda x: int(x),input(f'Через пробел введите {a_count} чисел для игрока А :').split(' ')))
+        a_cards =  list(map(lambda x: int(x),
+        input(f'Через пробел введите {a_count} чисел для игрока А :').strip().split()))
 
     while len(b_cards) != b_count:
-        b_cards =  list(map(lambda x: int(x),input(f'Через пробел введите {b_count} чисел для игрока B :').split(' ')))
+        b_cards =  list(map(lambda x: int(x),
+        input(f'Через пробел введите {b_count} чисел для игрока B :').strip().split()))
 
-    def update_q_count(a:list,b:list):
+    def update_q_count():
         count = 0
-        a_b_list = a+b
-        for i in a_b_list :
-            if a_b_list.count(i) == 1:
+        a_fake = a_cards.copy()
+        b_fake = b_cards.copy()
+
+        for i in range(len(a_fake)):
+            if a_fake[i] in b_fake:
+                b_fake.remove(a_fake[i])
+            else:
                 count+=1
-        q_list.append(count)
+
+        count += len(b_fake)
+        q_list.append(str(count))
 
 
     for i in range(q_count):
-        typek,playerk,cardk = input(f'Введите изменение № {i+1} :').split(' ')
+        typek,playerk,cardk = input(f'Введите изменение № {i+1} :').strip().split()
 
         if typek == '-1':
             if playerk=='A':
@@ -32,13 +41,13 @@ def kki():
             elif playerk == 'B':
                 b_cards.append(int(cardk))
 
+        update_q_count()
+        print(' '.join(q_list))
 
-        update_q_count(a_cards,b_cards)
-        print(q_list)
-    print('A',a_cards)
-    print('B',b_cards)
-    print(q_list)
 
 
 if __name__ == '__main__':
     kki()
+
+
+
