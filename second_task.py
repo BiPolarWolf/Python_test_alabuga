@@ -1,16 +1,27 @@
 def kki():
+
+    #ввод кол-во карт (а) и кол-во карт (б) и кол-во (изменений)
+
     a_count, b_count ,q_count = list(map(lambda x: int(x),
     input('Через пробел введите 3 числа :').strip().split()))
-    q_list = a_cards = b_cards = []
 
+    a_cards = b_cards = []
+
+    # пока кол-во карт а не будет тем же что мы вписали ранее он будет просить ввести еще раз
     while len(a_cards) != a_count:
         a_cards =  list(map(lambda x: int(x),
         input(f'Через пробел введите {a_count} чисел для игрока А :').strip().split()))
 
+    # пока кол-во карт (б) не будет тем же что мы вписали ранее он будет просить ввести еще раз
     while len(b_cards) != b_count:
         b_cards =  list(map(lambda x: int(x),
         input(f'Через пробел введите {b_count} чисел для игрока B :').strip().split()))
 
+    # список показателей разности колод
+    q_list = []
+
+
+    # функция которая высчитывает количество отличий в колоде и заносит в список q_list
     def update_q_count():
         count = 0
         a_fake = a_cards.copy()
@@ -26,6 +37,8 @@ def kki():
         q_list.append(str(count))
 
 
+
+    # здесь ( q_count ) раз пользователь вводит изменения
     for i in range(q_count):
         typek,playerk,cardk = input(f'Введите изменение № {i+1} :').strip().split()
 
